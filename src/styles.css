@@ -119,3 +119,19 @@ a:hover {
   display: none;
   white-space: pre;
 }
+
+#successDisplay{
+  position: absolute;
+  background: rgb(188, 225, 136);
+  color: rgb(0, 0, 0);
+  display: flex;
+  width: 500px;
+  left: 50%;
+  top: calc(50% + 180px);
+  transform: translate(-50%, 0%);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.25);
+  user-select: none;
+  padding: 20px;
+  display: none;
+  white-space: pre;
+}

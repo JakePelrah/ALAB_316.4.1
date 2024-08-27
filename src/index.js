@@ -1,8 +1,10 @@
 
 const form = document.getElementById('registration')
 const displayError = document.getElementById('errorDisplay')
+const displaySuccess = document.getElementById('successDisplay')
 
-const { username, email, password, passwordCheck,terms } = form.elements
+
+const { username, email, password, passwordCheck, terms } = form.elements
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -17,8 +19,8 @@ form.addEventListener('submit', (e) => {
     }
 
     if (!validUsername(username.value)) {
-        displayError.textContent += 'Invalid Username: It must be at least four characters long without any\n' + 
-        'whitespace or special characters, and include at least two unique characters.\n'
+        displayError.textContent += 'Invalid Username: It must be at least four characters long without any\n' +
+            'whitespace or special characters, and include at least two unique characters.\n'
         return
     }
 
@@ -35,15 +37,21 @@ form.addEventListener('submit', (e) => {
         displayError.textContent += 'Passwords do not match'
         return
     }
-    
-    if(!terms.checked){
-        displayError.textContent+='Please agree to the terms.'
+
+    if (!terms.checked) {
+        displayError.textContent += 'Please agree to the terms.'
         return
     }
 
     displayError.style.display = 'none'
+    alert("Form submitted succesfully!")
+    const userData = {
+        username: username.value.toLowerCase(),
+        email: email.value.toLowerCase(),
+        password: password.value,
+    }
+    localStorage.setItem('users', JSON.stringify(userData))
     form.submit()
-
 })
 
 
