@@ -1,14 +1,14 @@
 
 ////////////////////// Part 3 ////////////////////// 
-const form = document.getElementById('registration')
+const regForm = document.getElementById('registration')
 const displayError = document.getElementById('errorDisplay')
 const displaySuccess = document.getElementById('successDisplay')
 
 localStorage.setItem('users', JSON.stringify([]))
 
-const { username, email, password, passwordCheck, terms } = form.elements
+const { username, email, password, passwordCheck, terms } = regForm.elements
 
-form.addEventListener('submit', (e) => {
+regForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
 
@@ -55,7 +55,7 @@ form.addEventListener('submit', (e) => {
 
     appendToLocalStorage(userData)
     alert("Form submitted succesfully!")
-    form.reset()
+    regForm.reset()
 })
 
 
@@ -116,13 +116,56 @@ function passwordsMatch(password, passwordCheck) {
 }
 
 
-function appendToLocalStorage(data){
+function appendToLocalStorage(data) {
     let users = localStorage.getItem('users')
     users = JSON.parse(users)
-    users.push(data)    
+    users.push(data)
     localStorage.setItem('users', JSON.stringify(users))
 }
 
 
+
 ////////////////////// Part 4 ////////////////////// 
+
+const loginForm = document.getElementById('login')
+
+
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    displayError.style.display = 'block'
+    displayError.textContent = ''
+    displaySuccess.style.display = 'none'
+    displaySuccess.textContent = ''
+
+    const { username, password, persist } = loginForm.elements
+
+    const user = verifyUser(username.value.toLowerCase(), password.value)
+
+    if (user.length <= 0) {
+        displayError.textContent += 'Invalid credentials.'
+        return
+    }
+
+    displaySuccess.textContent += 'Successfully logged in'
+    if (persist.checked) {
+        displaySuccess.textContent += ', persisting login.'
+    }
+
+
+
+    displaySuccess.style.display = 'block'
+    displayError.style.display = 'none'
+    loginForm.reset()
+
+})
+
+
+function verifyUser(username, password) {
+    const users = JSON.parse(localStorage.getItem('users'))
+    const user = users.filter(user => user.username === username && user.password === password)
+    return user
+}
+
+
 
