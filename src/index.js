@@ -1,8 +1,10 @@
 
+////////////////////// Part 3 ////////////////////// 
 const form = document.getElementById('registration')
 const displayError = document.getElementById('errorDisplay')
 const displaySuccess = document.getElementById('successDisplay')
 
+localStorage.setItem('users', JSON.stringify([]))
 
 const { username, email, password, passwordCheck, terms } = form.elements
 
@@ -44,14 +46,16 @@ form.addEventListener('submit', (e) => {
     }
 
     displayError.style.display = 'none'
-    alert("Form submitted succesfully!")
+
     const userData = {
         username: username.value.toLowerCase(),
         email: email.value.toLowerCase(),
         password: password.value,
     }
-    localStorage.setItem('users', JSON.stringify(userData))
-    form.submit()
+
+    appendToLocalStorage(userData)
+    alert("Form submitted succesfully!")
+    form.reset()
 })
 
 
@@ -110,3 +114,15 @@ function validPassword(password, username) {
 function passwordsMatch(password, passwordCheck) {
     return password === passwordCheck
 }
+
+
+function appendToLocalStorage(data){
+    let users = localStorage.getItem('users')
+    users = JSON.parse(users)
+    users.push(data)    
+    localStorage.setItem('users', JSON.stringify(users))
+}
+
+
+////////////////////// Part 4 ////////////////////// 
+
