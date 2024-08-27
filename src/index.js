@@ -2,11 +2,11 @@
 const form = document.getElementById('registration')
 const displayError = document.getElementById('errorDisplay')
 
-const { username, email, password, passwordCheck } = form.elements
-
+const { username, email, password, passwordCheck,terms } = form.elements
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
+
 
     displayError.style.display = 'block'
     displayError.textContent = ''
@@ -33,6 +33,11 @@ form.addEventListener('submit', (e) => {
 
     if (!passwordsMatch(password.value, passwordCheck.value)) {
         displayError.textContent += 'Passwords do not match'
+        return
+    }
+    
+    if(!terms.checked){
+        displayError.textContent+='Please agree to the terms.'
         return
     }
 
